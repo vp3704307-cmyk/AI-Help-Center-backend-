@@ -5,7 +5,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 6000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL =
   process.env.GEMINI_MODEL || "gemini-3.8-flash";
