@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="AI Help Center — नौकरी, पढ़ाई, सरकारी योजनाएँ, दस्तावेज़, UPI, बिज़नेस और रोज़मर्रा की ऑनलाइन मदद आसान हिंदी में।">
+<title>AI Help Center — हर समस्या का समाधान</title>
+<style>
+:root{--ink:#142d32;--muted:#607579;--brand:#0f766e;--brand2:#115e59;--mint:#e8f7f3;--paper:#f7faf9;--line:#e0eae7;--white:#fff;--gold:#f4b942;--shadow:0 12px 32px rgba(20,45,50,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari","Nirmala UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}button,input{font:inherit}button,a,input{outline-offset:3px}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+.topbar{background:#103f3d;color:#e9fffa;font-size:13px;padding:8px 0}.topbar .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:20px;letter-spacing:-.4px}.logo{width:44px;height:44px;border-radius:14px;background:var(--brand);display:grid;place-items:center;color:#fff;font-size:25px;box-shadow:0 6px 15px #0f766e30}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0}.navlinks{display:flex;gap:22px;align-items:center;font-size:14px;color:#40595b}.navlinks a:hover{color:var(--brand)}.navcta,.primary{border:0;background:var(--brand);color:#fff;border-radius:12px;padding:11px 16px;font-weight:750;cursor:pointer}.navcta:hover,.primary:hover{background:var(--brand2)}
+.hero{padding:54px 0 34px;background:radial-gradient(ellipse at 90% 10%,#d6f3e9 0,transparent 42%),linear-gradient(180deg,#f0faf6,#f7faf9)}.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:36px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #c4e7db;background:#fff;color:var(--brand2);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800}.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.16;letter-spacing:-1.5px;margin:17px 0 14px;max-width:700px}.hero h1 span{color:var(--brand)}.hero p{color:var(--muted);font-size:17px;max-width:590px;margin:0 0 22px}.searchbox{display:flex;gap:8px;background:#fff;border:1px solid #d7e6e1;padding:7px;border-radius:16px;max-width:620px;box-shadow:var(--shadow)}.searchbox input{border:0;outline:none;min-width:0;flex:1;padding:10px 12px;background:transparent;color:var(--ink)}.searchbox button{white-space:nowrap}.popular{font-size:12px;color:var(--muted);margin-top:12px}.popular button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 9px;margin:5px 3px 0 0;cursor:pointer;color:#46615f;font-size:12px}.hero-art{background:#fff;border:1px solid #dcece6;border-radius:28px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}.art-head{display:flex;justify-content:space-between;align-items:center;font-weight:800}.status{font-size:11px;background:#e6f8ee;color:#177245;padding:5px 9px;border-radius:999px}.chatbubble{background:#eff8f5;border-radius:15px 15px 15px 4px;padding:13px;margin-top:18px;font-size:14px}.chatbubble.answer{background:#f5f6fa;border-radius:15px 15px 4px 15px;margin-left:25px}.mini-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.mini-tags span{font-size:12px;background:#fff;border:1px solid var(--line);padding:7px 9px;border-radius:10px}
+section{padding:42px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:22px}.section-head h2{font-size:clamp(23px,3vw,31px);margin:0 0 5px;letter-spacing:-.6px}.section-head p{margin:0;color:var(--muted);font-size:14px}.textlink{color:var(--brand);font-size:14px;font-weight:800;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.category{display:block;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;min-height:164px;transition:transform .18s,border-color .18s,box-shadow .18s}.category:hover{transform:translateY(-3px);border-color:#a7d9cb;box-shadow:var(--shadow)}.ico{width:47px;height:47px;display:grid;place-items:center;border-radius:14px;background:var(--mint);font-size:25px;margin-bottom:13px}.category h3{font-size:16px;margin:0 0 5px}.category p{font-size:12px;color:var(--muted);margin:0}.arrow{float:right;color:var(--brand);font-weight:900}
+.feature-band{background:#103f3d;color:white;border-radius:26px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}.feature-band h2{margin:0 0 8px;font-size:25px}.feature-band p{margin:0;color:#c8e5df;max-width:640px;font-size:14px}.feature-band .primary{background:#f4c15e;color:#193e3a}.feature-band .primary:hover{background:#ffd783}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.stepnum{width:34px;height:34px;border-radius:11px;background:#fff2d4;color:#7a5510;display:grid;place-items:center;font-weight:900}.step h3{margin:12px 0 5px;font-size:16px}.step p{margin:0;color:var(--muted);font-size:13px}
+.notice{display:flex;gap:12px;align-items:flex-start;background:#fff8e8;border:1px solid #f1dfb3;border-radius:15px;padding:15px;color:#684f1a;font-size:13px;margin-top:24px}.notice strong{display:block;margin-bottom:3px}
+footer{background:#102f31;color:#e4f4f1;padding:35px 0 22px;margin-top:25px}.footgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px}.footbrand p{color:#b8d2cd;font-size:13px;max-width:350px}.footcol h3{font-size:14px;margin:0 0 12px}.footcol a{display:block;color:#c5dad6;font-size:13px;margin:7px 0}.footcol a:hover{color:#fff}.copyright{border-top:1px solid #315152;margin-top:25px;padding-top:16px;font-size:12px;color:#a9c6c0;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#163f3d;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);max-width:calc(100% - 30px);font-size:14px;display:none;z-index:30}.toast.show{display:block}.mobilebar{display:none}
+@media(max-width:850px){.navlinks{display:none}.hero-grid{grid-template-columns:1fr}.hero-art{max-width:560px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-band{grid-template-columns:1fr}.footgrid{grid-template-columns:1fr 1fr}.footbrand{grid-column:1/-1}}
+@media(max-width:540px){.wrap{width:min(100% - 24px,1120px)}.topbar .wrap{font-size:11px}.nav{min-height:66px}.brand{font-size:17px}.logo{width:39px;height:39px}.navcta{padding:9px 11px;font-size:12px}.hero{padding:34px 0 24px}.hero h1{font-size:34px;letter-spacing:-.8px}.hero p{font-size:15px}.searchbox{gap:4px}.searchbox input{padding:9px 5px;font-size:13px}.searchbox button{padding:10px;font-size:12px}.hero-art{padding:17px;border-radius:21px}.section-head{align-items:start}.section-head .textlink{font-size:12px}.grid{gap:10px}.category{padding:14px;min-height:158px;border-radius:15px}.ico{width:42px;height:42px;font-size:22px}.category h3{font-size:14px}.category p{font-size:11px}.steps{grid-template-columns:1fr}.feature-band{padding:22px;border-radius:20px}.feature-band h2{font-size:22px}.footgrid{grid-template-columns:1fr 1fr;gap:20px}.copyright{font-size:11px}.mobilebar{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:20;justify-content:space-around}.mobilebar a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:#48615e;min-width:58px}.mobilebar span{font-size:19px}body{padding-bottom:65px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span>🇮🇳 आसान हिंदी में डिजिटल मदद</span><span>समझें • सीखें • सही जानकारी पाएँ</span></div></div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#" aria-label="AI Help Center होम"><span class="logo">✦</span><span>AI Help Center<small>हर समस्या का समाधान</small></span></a>
+    <nav class="navlinks" aria-label="मुख्य नेविगेशन"><a href="#categories">सहायता श्रेणियाँ</a><a href="#how">कैसे काम करता है</a><a href="#safety">सुरक्षा</a></nav>
+    <a class="navcta" href="#ask">सवाल पूछें ↗</a>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">✦ आपकी मदद, आपकी भाषा में</span>
+        <h1>आपकी समस्या,<br><span>समाधान आसान।</span></h1>
+        <p>नौकरी, पढ़ाई, सरकारी योजनाएँ, ऑनलाइन फॉर्म या डिजिटल पेमेंट—सही दिशा में अगला कदम आसान हिंदी में जानें।</p>
+        <form class="searchbox" id="searchForm">
+          <input id="searchInput" type="search" placeholder="जैसे: सरकारी नौकरी, UPI, पेंशन..." aria-label="सहायता खोजें">
+          <button class="primary" type="submit">खोजें</button>
+        </form>
+        <div class="popular">लोकप्रिय खोज:
+          <button type="button" data-query="सरकारी नौकरी">सरकारी नौकरी</button>
+          <button type="button" data-query="रिजल्ट">रिजल्ट</button>
+          <button type="button" data-query="UPI समस्या">UPI समस्या</button>
+          <button type="button" data-query="ऑनलाइन फॉर्म">ऑनलाइन फॉर्म</button>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="AI सहायता का उदाहरण">
+        <div class="art-head"><span>✦ AI सहायता</span><span class="status">मदद के लिए तैयार</span></div>
+        <div class="chatbubble">नमस्ते! आपको किस काम में मदद चाहिए?</div>
+        <div class="chatbubble answer">मुझे ऑनलाइन फॉर्म भरना है।<br><small>उदाहरण</small></div>
+        <div class="chatbubble">ज़रूर। पहले आधिकारिक वेबसाइट पहचानेंगे, फिर फॉर्म के चरण समझेंगे।</div>
+        <div class="mini-tags"><span>✓ आसान चरण</span><span>✓ हिंदी में</span><span>✓ सुरक्षा पहले</span></div>
+      </div>
+    </div>
+  </section>
+  <section id="categories">
+    <div class="wrap">
+      <div class="section-head"><div><h2>आपको किस चीज़ में मदद चाहिए?</h2><p>अपनी जरूरत चुनें और आगे बढ़ें।</p></div><a class="textlink" href="#ask">सवाल पूछें ↗</a></div>
+      <div class="grid" id="categoryGrid">
+        <a class="category" href="#ask" data-category="नौकरी और रिजल्ट"><span class="arrow">↗</span><div class="ico">💼</div><h3>नौकरी और रिजल्ट</h3><p>सरकारी व प्राइवेट जॉब, भर्ती, एडमिट कार्ड, परिणाम</p></a>
+        <a class="category" href="#ask" data-category="पढ़ाई और परीक्षा"><span class="arrow">↗</span><div class="ico">📚</div><h3>पढ़ाई और परीक्षा</h3><p>स्टडी प्लान, दैनिक सवाल, MCQ और मॉक टेस्ट</p></a>
+        <a class="category" href="#ask" data-category="सरकारी योजनाएँ"><span class="arrow">↗</span><div class="ico">🇮🇳</div><h3>सरकारी योजनाएँ</h3><p>योजना की जानकारी, पात्रता और आवेदन प्रक्रिया</p></a>
+        <a class="category" href="#ask" data-category="दस्तावेज़ और फॉर्म"><span class="arrow">↗</span><div class="ico">📝</div><h3>दस्तावेज़ और फॉर्म</h3><p>ऑनलाइन आवेदन, प्रमाणपत्र और जरूरी कागज़ात</p></a>
+        <a class="category" href="#ask" data-category="UPI और डिजिटल पेमेंट"><span class="arrow">↗</span><div class="ico">💳</div><h3>UPI और डिजिटल पेमेंट</h3><p>पेमेंट समस्या, सुरक्षित लेन-देन और धोखाधड़ी से बचाव</p></a>
+        <a class="category" href="#ask" data-category="बिज़नेस और कमाई"><span class="arrow">↗</span><div class="ico">📈</div><h3>बिज़नेस और कमाई</h3><p>छोटा व्यवसाय, ऑनलाइन प्रचार और ग्राहक सेवा</p></a>
+        <a class="category" href="#ask" data-category="डिलीवरी सेवाएँ"><span class="arrow">↗</span><div class="ico">🛵</div><h3>डिलीवरी सेवाएँ</h3><p>पिकअप, पार्सल, लोकल डिलीवरी और राइडर सहायता</p></a>
+        <a class="category" href="#ask" data-category="कंटेंट क्रिएटर"><span class="arrow">↗</span><div class="ico">🎬</div><h3>कंटेंट क्रिएटर</h3><p>वीडियो आइडिया, स्क्रिप्ट, कैप्शन और थंबनेल सुझाव</p></a>
+        <a class="category" href="#ask" data-category="मोबाइल और ऐप्स"><span class="arrow">↗</span><div class="ico">📱</div><h3>मोबाइल और ऐप्स</h3><p>ऐप सेटिंग, सामान्य त्रुटियाँ और डिजिटल सहायता</p></a>
+        <a class="category" href="#ask" data-category="सीनियर सिटीजन सहायता"><span class="arrow">↗</span><div class="ico">🧓</div><h3>सीनियर सिटीजन सहायता</h3><p>पेंशन, जीवन प्रमाणपत्र और ऑनलाइन सेवा की जानकारी</p></a>
+        <a class="category" href="#ask" data-category="कृषि सहायता"><span class="arrow">↗</span><div class="ico">🌾</div><h3>कृषि सहायता</h3><p>खेती के सामान्य सवाल, योजनाएँ और जरूरी संसाधन</p></a>
+        <a class="category" href="#ask" data-category="अन्य समस्या"><span class="arrow">↗</span><div class="ico">🤝</div><h3>अन्य समस्या</h3><p>अपनी जरूरत बताइए—सही दिशा खोजने में मदद पाएँ</p></a>
+      </div>
+    </div>
+  </section>
+  <section id="ask">
+    <div class="wrap">
+      <div class="feature-band">
+        <div><h2>अपना सवाल लिखें</h2><p>अपनी समस्या सामान्य शब्दों में बताइए। यह शुरुआती वेबसाइट डेमो अभी AI backend से जुड़ा नहीं है; यहाँ सवाल लिखने पर आपको अगला चरण बताया जाएगा।</p></div>
+        <a class="primary" href="#questionForm">सवाल लिखें ↓</a>
+      </div>
+      <form id="questionForm" style="margin-top:18px;background:#fff;border:1px solid var(--line);padding:20px;border-radius:18px">
+        <label for="question" style="font-weight:800;display:block;margin-bottom:8px">आपको किस समस्या में मदद चाहिए?</label>
+        <textarea id="question" rows="4" maxlength="1500" required placeholder="उदाहरण: मुझे सरकारी नौकरी का आधिकारिक नोटिफिकेशन ढूँढना है..." style="width:100%;padding:13px;border:1px solid #d6e4df;border-radius:12px;resize:vertical"></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px"><small style="color:var(--muted)">पासवर्ड, OTP, बैंक PIN या API key न लिखें।</small><button class="primary" type="submit">आगे बढ़ें</button></div>
+      </form>
+    </div>
+  </section>
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head"><div><h2>मदद पाने के 3 आसान चरण</h2><p>सीधे और सरल तरीके से शुरुआत करें।</p></div></div>
+      <div class="steps">
+        <article class="step"><div class="stepnum">1</div><h3>अपनी श्रेणी चुनें</h3><p>नौकरी, पढ़ाई, दस्तावेज़ या दूसरी जरूरत चुनें।</p></article>
+        <article class="step"><div class="stepnum">2</div><h3>समस्या साफ़ लिखें</h3><p>क्या करना चाहते हैं और कहाँ अटके हैं, यह बताएँ।</p></article>
+        <article class="step"><div class="stepnum">3</div><h3>चरण-दर-चरण आगे बढ़ें</h3><p>आधिकारिक जानकारी जाँचें और सुरक्षित तरीके से प्रक्रिया पूरी करें।</p></article>
+      </div>
+      <div class="notice" id="safety"><span style="font-size:22px">🛡️</span><div><strong>आपकी सुरक्षा सबसे पहले</strong>किसी को अपना OTP, पासवर्ड, UPI PIN या बैंक की गोपनीय जानकारी न दें। नौकरी, रिजल्ट और सरकारी योजनाओं की ताज़ा जानकारी संबंधित आधिकारिक वेबसाइट से सत्यापित करें।</div></div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="footgrid">
+      <div class="footbrand"><a class="brand" href="#" style="color:#fff"><span class="logo" style="background:#1d8c80">✦</span><span>AI Help Center<small style="color:#b8d2cd">हर समस्या का समाधान</small></span></a><p>डिजिटल सेवाओं को आसान हिंदी में समझने और सही अगला कदम खोजने के लिए एक सहायता केंद्र।</p></div>
+      <div class="footcol"><h3>सहायता</h3><a href="#categories">सभी श्रेणियाँ</a><a href="#ask">सवाल पूछें</a><a href="#how">कैसे काम करता है</a></div>
+      <div class="footcol"><h3>जरूरी बातें</h3><a href="#safety">ऑनलाइन सुरक्षा</a><a href="#safety">आधिकारिक स्रोत जाँचें</a><a href="#safety">जानकारी की पुष्टि</a></div>
+    </div>
+    <div class="copyright"><span>© <span id="year"></span> AI Help Center</span><span>यह शुरुआती वेबसाइट डेमो है; AI जवाब और लाइव अलर्ट अभी कनेक्ट नहीं हैं।</span></div>
+  </div>
+</footer>
+<nav class="mobilebar" aria-label="मोबाइल नेविगेशन"><a href="#"><span>⌂</span>होम</a><a href="#categories"><span>▦</span>श्रेणियाँ</a><a href="#ask"><span>✦</span>सवाल</a><a href="#safety"><span>🛡️</span>सुरक्षा</a></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const toast = document.getElementById("toast");
+let toastTimer;
+function notify(message){
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("show"), 4500);
+}
+document.getElementById("year").textContent = new Date().getFullYear();
+function searchCategory(value){
+  const q = value.trim().toLocaleLowerCase("hi");
+  if(!q){notify("पहले कोई विषय लिखें, जैसे नौकरी या UPI।");return;}
+  const cards = [...document.querySelectorAll(".category")];
+  const found = cards.filter(card => card.innerText.toLocaleLowerCase("hi").includes(q));
+  cards.forEach(card=>card.style.display = (!found.length || found.includes(card)) ? "" : "none");
+  document.getElementById("categories").scrollIntoView({behavior:"smooth"});
+  notify(found.length ? `${found.length} संबंधित श्रेणी मिली।` : "सटीक श्रेणी नहीं मिली। नीचे 'अन्य समस्या' या सवाल वाला विकल्प चुनें।");
+}
+document.getElementById("searchForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  searchCategory(document.getElementById("searchInput").value);
+});
+document.querySelectorAll("[data-query]").forEach(button=>{
+  button.addEventListener("click",()=> {
+    document.getElementById("searchInput").value = button.dataset.query;
+    searchCategory(button.dataset.query);
+  });
+});
+document.querySelectorAll("[data-category]").forEach(card=>{
+  card.addEventListener("click",()=>{
+    document.getElementById("question").value = "मुझे " + card.dataset.category + " में मदद चाहिए। ";
+  });
+});
+document.getElementById("questionForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const question = document.getElementById("question").value.trim();
+  if(!question){notify("कृपया अपनी समस्या लिखें।");return;}
+  notify("आपका सवाल इस डेमो में सेव या AI को भेजा नहीं गया है। Backend जुड़ने के बाद यह सुविधा चालू की जा सकती है।");
+});
+</script>
+</body>
+</html>
