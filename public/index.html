@@ -1,253 +1,201 @@
 
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f766e">
-  <title>AI Help Center – हर समस्या का समाधान</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, "Noto Sans Devanagari", sans-serif;
-      background: #f0fdfa;
-      color: #173b39;
-      line-height: 1.6;
-    }
-    header {
-      background: white;
-      padding: 18px;
-      text-align: center;
-      border-bottom: 1px solid #d5e9e5;
-    }
-    header h1 { margin: 0; color: #0f766e; }
-    header p { margin: 5px 0 0; }
-    main { max-width: 850px; margin: auto; padding: 22px 16px; }
-    .hero, .panel {
-      background: white;
-      padding: 24px;
-      border-radius: 18px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 22px #0f766e0d;
-    }
-    .hero { background: #ccfbf1; }
-    h2 { line-height: 1.35; }
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-      gap: 12px;
-    }
+<style>
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 16px;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, "Noto Sans Devanagari", sans-serif;
+    background: #f0fdfa;
+    color: #173b39;
+    line-height: 1.55;
+  }
+
+  header {
+    background: #ffffff;
+    padding: 18px 14px;
+    text-align: center;
+    border-bottom: 1px solid #d5e9e5;
+  }
+
+  header h1 {
+    margin: 0;
+    color: #0f766e;
+    font-size: clamp(24px, 5vw, 32px);
+  }
+
+  header p { margin: 6px 0 0; }
+
+  main {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 18px 14px;
+  }
+
+  .hero, .panel {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 18px #0f766e0d;
+    overflow-wrap: anywhere;
+  }
+
+  .hero { background: #ccfbf1; }
+
+  h2 {
+    font-size: clamp(20px, 4vw, 25px);
+    line-height: 1.4;
+    margin-top: 0;
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .category {
+    min-width: 0;
+    min-height: 94px;
+    padding: 13px;
+    background: #ffffff;
+    color: #173b39;
+    border: 1px solid #d5e9e5;
+    border-radius: 12px;
+    text-align: left;
+    font: inherit;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+
+  .category strong {
+    display: block;
+    margin: 4px 0;
+    font-size: 15px;
+  }
+
+  .category:hover, .category:focus-visible {
+    border-color: #0f766e;
+    background: #f0fdfa;
+    outline: 2px solid #99f6e4;
+    outline-offset: 1px;
+  }
+
+  .category:active { background: #ccfbf1; }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 115px;
+    padding: 14px;
+    border: 1px solid #9bbfba;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #173b39;
+    font: inherit;
+    font-size: 16px;
+    resize: vertical;
+  }
+
+  textarea:focus-visible {
+    outline: 2px solid #0f766e;
+    outline-offset: 2px;
+  }
+
+  .submit-button {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 12px;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: #0f766e;
+    color: #ffffff;
+    font: inherit;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .submit-button:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 2px;
+  }
+
+  button:disabled {
+    opacity: .65;
+    cursor: wait;
+  }
+
+  #answer {
+    display: none;
+    margin-top: 16px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    border: 1px solid #a7d8c7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    scroll-margin-top: 16px;
+  }
+
+  .note {
+    font-size: 14px;
+    color: #496562;
+  }
+
+  footer {
+    text-align: center;
+    padding: 22px 14px;
+    color: #496562;
+    font-size: 14px;
+  }
+
+  a { color: #0f766e; }
+
+  @media (max-width: 380px) {
+    main { padding: 12px 10px; }
+
+    .hero, .panel { padding: 15px; }
+
+    .categories { gap: 8px; }
+
     .category {
-      display: block;
-      width: 100%;
-      margin: 0;
-      background: white;
-      color: #173b39;
-      padding: 16px;
-      border: 1px solid #d5e9e5;
-      border-radius: 12px;
-      text-align: left;
-      font: inherit;
-      cursor: pointer;
-      transition: border-color .15s, background .15s, transform .15s;
+      padding: 10px;
+      font-size: 13px;
     }
-    .category:hover, .category:focus-visible {
-      border-color: #0f766e;
-      background: #f0fdfa;
-      outline: 2px solid #99f6e4;
-      outline-offset: 1px;
+
+    .category strong { font-size: 14px; }
+  }
+
+  @media (min-width: 650px) {
+    .categories {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .category:active { transform: scale(.98); }
-    .category strong { display: block; }
-    label { display: block; font-weight: bold; margin-bottom: 8px; }
-    textarea {
-      width: 100%;
-      min-height: 130px;
-      padding: 14px;
-      border: 1px solid #9bbfba;
-      border-radius: 10px;
-      font: inherit;
-      resize: vertical;
+
+    main { padding: 24px 18px; }
+
+    .hero, .panel { padding: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      transition: none !important;
     }
-    .submit-button {
-      width: 100%;
-      margin-top: 12px;
-      padding: 14px;
-      border: 0;
-      border-radius: 10px;
-      background: #0f766e;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:disabled { opacity: .6; cursor: wait; }
-    #answer {
-      display: none;
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 10px;
-      background: #ecfdf5;
-      border: 1px solid #a7d8c7;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-    .note { font-size: 14px; color: #496562; }
-    footer { text-align: center; padding: 24px; color: #496562; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>🇮🇳 AI Help Center</h1>
-    <p>हर समस्या का समाधान — आसान हिंदी में</p>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>आपकी समस्या, समाधान आसान।</h2>
-      <p>नौकरी, पढ़ाई, सरकारी योजनाएँ, ऑनलाइन फॉर्म और डिजिटल पेमेंट में मदद पाएँ।</p>
-      <a href="#categories">अपनी मदद की श्रेणी चुनें</a>
-    </section>
-
-    <section class="panel" id="categories">
-      <h2>आपको किस चीज़ में मदद चाहिए?</h2>
-      <p class="note">किसी बॉक्स पर क्लिक करें। आपका सवाल अपने-आप भर जाएगा।</p>
-
-      <div class="categories">
-        <button type="button" class="category" data-question="बिहार में सरकारी नौकरी की नई भर्ती, आवेदन की तारीख और आधिकारिक लिंक बताइए।">
-          💼 <strong>नौकरी और रिजल्ट</strong>भर्ती, एडमिट कार्ड, परिणाम
-        </button>
-        <button type="button" class="category" data-question="मेरे लिए पढ़ाई का स्टडी प्लान बनाइए और अभ्यास के MCQ दीजिए।">
-          📚 <strong>पढ़ाई और परीक्षा</strong>MCQ, स्टडी प्लान
-        </button>
-        <button type="button" class="category" data-question="सरकारी योजनाओं की पात्रता, जरूरी दस्तावेज और आधिकारिक आवेदन लिंक बताइए।">
-          🇮🇳 <strong>सरकारी योजनाएँ</strong>पात्रता और आवेदन
-        </button>
-        <button type="button" class="category" data-question="मुझे ऑनलाइन दस्तावेज या फॉर्म भरने में मदद चाहिए। पूरी प्रक्रिया चरणों में समझाइए।">
-          📝 <strong>दस्तावेज़ और फॉर्म</strong>ऑनलाइन आवेदन
-        </button>
-        <button type="button" class="category" data-question="मुझे UPI या डिजिटल पेमेंट की समस्या है। सुरक्षित तरीके से समाधान बताइए।">
-          💳 <strong>UPI और पेमेंट</strong>भुगतान संबंधी मदद
-        </button>
-        <button type="button" class="category" data-question="मेरे छोटे बिज़नेस के प्रचार, ग्राहकों और ऑनलाइन बिक्री को बेहतर बनाने के तरीके बताइए।">
-          📈 <strong>बिज़नेस</strong>प्रचार और ग्राहक सेवा
-        </button>
-        <button type="button" class="category" data-question="मुझे डिलीवरी, पिकअप या पार्सल सेवा शुरू करने या इस्तेमाल करने में मदद चाहिए।">
-          🛵 <strong>डिलीवरी सेवाएँ</strong>पिकअप और पार्सल
-        </button>
-        <button type="button" class="category" data-question="मेरे वीडियो या सोशल मीडिया पोस्ट के लिए स्क्रिप्ट, कैप्शन और आइडिया बनाइए।">
-          🎬 <strong>कंटेंट क्रिएटर</strong>स्क्रिप्ट और कैप्शन
-        </button>
-        <button type="button" class="category" data-question="मेरे मोबाइल या ऐप में समस्या है। उसे ठीक करने के लिए आसान चरण बताइए।">
-          📱 <strong>मोबाइल और ऐप्स</strong>सेटिंग और त्रुटियाँ
-        </button>
-        <button type="button" class="category" data-question="सीनियर सिटीजन के लिए पेंशन, जीवन प्रमाण पत्र या ऑनलाइन सरकारी सेवाओं की प्रक्रिया समझाइए।">
-          🧓 <strong>सीनियर सिटीजन</strong>पेंशन और ऑनलाइन सेवा
-        </button>
-        <button type="button" class="category" data-question="खेती, फसल, कृषि सहायता और सरकारी कृषि योजनाओं के बारे में जानकारी दीजिए।">
-          🌾 <strong>कृषि सहायता</strong>खेती और योजनाएँ
-        </button>
-        <button type="button" class="category" data-question="">
-          🤝 <strong>अन्य समस्या</strong>अपना सवाल पूछें
-        </button>
-      </div>
-    </section>
-
-    <section class="panel" id="ask">
-      <h2>🤖 AI से सवाल पूछें</h2>
-      <p>अपनी समस्या साफ़ शब्दों में लिखें।</p>
-
-      <form id="questionForm">
-        <label for="question">आपका सवाल</label>
-        <textarea id="question" maxlength="4000" required
-          placeholder="अपना सवाल लिखें या ऊपर से कोई श्रेणी चुनें।"></textarea>
-        <p class="note">OTP, पासवर्ड, UPI PIN या बैंक की गोपनीय जानकारी न लिखें।</p>
-        <button class="submit-button" id="submitBtn" type="submit">AI से जवाब पाएँ</button>
-      </form>
-
-      <div id="answer" role="status" aria-live="polite"></div>
-    </section>
-
-    <section class="panel">
-      <h2>🛡️ आपकी सुरक्षा सबसे पहले</h2>
-      <p>सरकारी नौकरी, रिजल्ट और योजनाओं की ताज़ा जानकारी संबंधित आधिकारिक वेबसाइट पर जाँचें। AI का जवाब गलत भी हो सकता है।</p>
-    </section>
-  </main>
-
-  <footer>© 2026 AI Help Center · आसान हिंदी में डिजिटल मदद</footer>
-
-  <script>
-    const form = document.getElementById("questionForm");
-    const questionInput = document.getElementById("question");
-    const submitBtn = document.getElementById("submitBtn");
-    const answerBox = document.getElementById("answer");
-
-    document.querySelectorAll(".category").forEach(function (button) {
-      button.addEventListener("click", function () {
-        const presetQuestion = button.dataset.question;
-
-        if (presetQuestion) {
-          questionInput.value = presetQuestion;
-        } else {
-          questionInput.value = "";
-        }
-
-        document.getElementById("ask").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-        questionInput.focus();
-        answerBox.style.display = "none";
-      });
-    });
-
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-
-      const question = questionInput.value.trim();
-      if (!question) {
-        answerBox.style.display = "block";
-        answerBox.textContent = "कृपया पहले अपना सवाल लिखें।";
-        questionInput.focus();
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = "जवाब तैयार हो रहा है…";
-      answerBox.style.display = "block";
-      answerBox.textContent = "कृपया इंतज़ार करें…";
-
-      try {
-        const response = await fetch("/ask", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question })
-        });
-
-        const data = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-          throw new Error(
-            data.message || data.error || "AI सेवा अभी जवाब नहीं दे सकी।"
-          );
-        }
-
-        if (!data.answer) {
-          throw new Error("AI से खाली जवाब मिला।");
-        }
-
-        answerBox.textContent = data.answer;
-      } catch (error) {
-        answerBox.textContent =
-          "अभी जवाब नहीं मिल पाया: " + error.message +
-          "\n\nकृपया थोड़ी देर बाद फिर कोशिश करें।";
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "AI से जवाब पाएँ";
-      }
-    });
-  </script>
-</body>
-</html>
+  }
+</style>
