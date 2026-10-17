@@ -1,453 +1,276 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="description" content="AI Help Center से आसान हिंदी में डिजिटल मदद पाएँ और अपने सुझाव दें।">
+  <title>AI Help Center – आसान हिंदी में मदद</title>
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f0fdfa;color:#173b39;line-height:1.6}
+    header{padding:20px 14px;background:#fff;text-align:center;border-bottom:1px solid #d5e9e5}
+    header h1{margin:0;color:#0f766e;font-size:clamp(25px,5vw,34px)}
+    header p{margin:5px 0 0}
+    main{width:100%;max-width:850px;margin:auto;padding:18px 14px}
+    .hero,.panel{padding:20px;margin-bottom:18px;border-radius:16px;background:#fff;box-shadow:0 4px 18px #0f766e0d}
+    .hero{background:#ccfbf1}
+    h2{margin-top:0;line-height:1.4;font-size:clamp(20px,4vw,25px)}
+    .primary-link{display:inline-block;padding:10px 15px;border-radius:10px;background:#0f766e;color:#fff;text-decoration:none;font-weight:bold}
+    .categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .category{width:100%;min-width:0;min-height:92px;padding:12px;border:1px solid #d5e9e5;border-radius:12px;background:#fff;color:#173b39;font:inherit;font-size:14px;text-align:left;overflow-wrap:anywhere;cursor:pointer}
+    .category strong{display:block;margin:4px 0;font-size:15px}
+    .category:hover,.category:focus-visible{border-color:#0f766e;background:#f0fdfa;outline:2px solid #99f6e4;outline-offset:1px}
+    label{display:block;margin:12px 0 7px;font-weight:bold}
+    textarea,select{display:block;width:100%;padding:13px;border:1px solid #9bbfba;border-radius:12px;background:#fff;color:#173b39;font:inherit;font-size:16px}
+    textarea{min-height:110px;resize:vertical}
+    textarea:focus-visible,select:focus-visible{outline:2px solid #0f766e;outline-offset:2px}
+    .submit-button,.secondary-button{width:100%;min-height:48px;margin-top:12px;padding:12px;border:0;border-radius:12px;background:#0f766e;color:#fff;font:inherit;font-size:16px;font-weight:bold;cursor:pointer}
+    .secondary-button{background:#115e59}
+    button:disabled{opacity:.65;cursor:wait}
+    #answer,.notice{display:none;margin-top:16px;padding:15px;border:1px solid #a7d8c7;border-radius:12px;background:#ecfdf5;white-space:pre-wrap;overflow-wrap:anywhere}
+    #answer.error,.notice.error{border-color:#f0b4a8;background:#fff7f5;color:#8a2e20}
+    .note{color:#496562;font-size:14px}
+    .security{border-left:4px solid #0f766e}
+    .feedback-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .feedback-choice{padding:12px;border:1px solid #b7d6d1;border-radius:10px;background:#fff;color:#173b39;font:inherit;cursor:pointer}
+    .feedback-choice[aria-pressed="true"]{border-color:#0f766e;background:#ccfbf1;font-weight:bold}
+    .feedback-status{margin-top:10px;font-size:14px;color:#496562}
+    footer{padding:22px 14px;color:#496562;text-align:center;font-size:14px}
+    @media(max-width:360px){main{padding:12px 9px}.hero,.panel{padding:14px}.categories{gap:7px}.category{padding:9px;font-size:13px}.category strong{font-size:14px}}
+    @media(min-width:650px){.categories{grid-template-columns:repeat(3,minmax(0,1fr))}main{padding:24px 18px}.hero,.panel{padding:24px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🇮🇳 AI Help Center</h1>
+    <p>हर समस्या का समाधान — आसान हिंदी में</p>
+  </header>
 
-"use strict";
+  <main>
+    <section class="hero">
+      <h2>आपकी समस्या, समाधान आसान।</h2>
+      <p>नौकरी, पढ़ाई, सरकारी योजना, पेमेंट, खेती और ऑनलाइन काम में मदद पाएँ।</p>
+      <a class="primary-link" href="#categories">मदद चुनें ↓</a>
+    </section>
 
-const http = require("node:http");
-const fs = require("node:fs");
-const path = require("node:path");
+    <section class="panel" id="categories">
+      <h2>आपको किस चीज़ में मदद चाहिए?</h2>
+      <p class="note">किसी विकल्प पर दबाएँ। सवाल अपने-आप भर जाएगा।</p>
+      <div class="categories">
+        <button type="button" class="category" data-question="बिहार में सरकारी नौकरी की भर्ती, आवेदन की तारीख और आधिकारिक वेबसाइट कैसे देखें?">💼 <strong>नौकरी और रिजल्ट</strong>भर्ती, एडमिट कार्ड, परिणाम</button>
+        <button type="button" class="category" data-question="मेरे लिए आसान स्टडी प्लान बनाइए और अभ्यास के MCQ दीजिए।">📚 <strong>पढ़ाई और परीक्षा</strong>MCQ और स्टडी प्लान</button>
+        <button type="button" class="category" data-question="सरकारी योजनाओं की पात्रता, जरूरी दस्तावेज और आधिकारिक आवेदन वेबसाइट बताइए।">🇮🇳 <strong>सरकारी योजनाएँ</strong>पात्रता और आवेदन</button>
+        <button type="button" class="category" data-question="मुझे ऑनलाइन फॉर्म या दस्तावेज भरने में मदद चाहिए। आसान चरण बताइए।">📝 <strong>दस्तावेज़ और फॉर्म</strong>ऑनलाइन आवेदन</button>
+        <button type="button" class="category" data-question="मेरी UPI या डिजिटल पेमेंट की समस्या का सुरक्षित समाधान बताइए।">💳 <strong>UPI और पेमेंट</strong>भुगतान की समस्या</button>
+        <button type="button" class="category" data-question="मेरे छोटे बिज़नेस को बढ़ाने और ग्राहक पाने के आसान तरीके बताइए।">📈 <strong>बिज़नेस</strong>ग्राहक और बिक्री</button>
+        <button type="button" class="category" data-question="डिलीवरी, पिकअप या पार्सल सेवा शुरू करने या इस्तेमाल करने में मदद करें।">🛵 <strong>डिलीवरी सेवाएँ</strong>पिकअप और पार्सल</button>
+        <button type="button" class="category" data-question="मेरे वीडियो या सोशल मीडिया पोस्ट के लिए छोटी स्क्रिप्ट और कैप्शन बनाइए।">🎬 <strong>कंटेंट क्रिएटर</strong>स्क्रिप्ट और कैप्शन</button>
+        <button type="button" class="category" data-question="मेरे मोबाइल या ऐप की समस्या ठीक करने के आसान चरण बताइए।">📱 <strong>मोबाइल और ऐप्स</strong>सेटिंग और त्रुटियाँ</button>
+        <button type="button" class="category" data-question="सीनियर सिटीजन की पेंशन या जीवन प्रमाण पत्र की प्रक्रिया आसान भाषा में बताइए।">🧓 <strong>सीनियर सिटीजन</strong>पेंशन और सेवाएँ</button>
+        <button type="button" class="category" data-question="खेती, फसल और सरकारी कृषि योजनाओं की जानकारी पाने का तरीका बताइए।">🌾 <strong>कृषि सहायता</strong>खेती और योजनाएँ</button>
+        <button type="button" class="category" data-question="">🤝 <strong>अन्य समस्या</strong>अपना सवाल पूछें</button>
+      </div>
+    </section>
 
-const PORT = Number(process.env.PORT) || 6000;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL =
-  process.env.GEMINI_MODEL || "gemini-3.6-flash";
+    <section class="panel" id="ask">
+      <h2>🤖 अपना सवाल पूछें</h2>
+      <p>सवाल लिखें और आसान हिंदी में जवाब पाएँ।</p>
+      <form id="questionForm">
+        <label for="question">आपकी समस्या क्या है?</label>
+        <textarea id="question" name="question" maxlength="4000" required placeholder="यहाँ अपना सवाल लिखें…"></textarea>
+        <p class="note">OTP, पासवर्ड, UPI PIN या बैंक की गोपनीय जानकारी न लिखें।</p>
+        <button class="submit-button" id="submitBtn" type="submit">जवाब पाएँ</button>
+      </form>
+      <div id="answer" role="status" aria-live="polite"></div>
+    </section>
 
-const INDEX_FILE = path.join(__dirname, "..", "public", "index.html");
+    <section class="panel" id="feedback">
+      <h2>🗣️ अपना Feedback दें</h2>
+      <p>आपका सुझाव वेबसाइट को बेहतर बनाने में मदद करेगा।</p>
+      <form id="feedbackForm">
+        <label>क्या जवाब आपके काम आया?</label>
+        <div class="feedback-options" role="group" aria-label="जवाब की उपयोगिता">
+          <button type="button" class="feedback-choice" data-rating="useful" aria-pressed="false">👍 हाँ, उपयोगी</button>
+          <button type="button" class="feedback-choice" data-rating="not_useful" aria-pressed="false">👎 उपयोगी नहीं</button>
+        </div>
+        <label for="feedbackType">Feedback का प्रकार</label>
+        <select id="feedbackType" required>
+          <option value="">विकल्प चुनें</option>
+          <option value="wrong_answer">जवाब गलत था</option>
+          <option value="incomplete_answer">जवाब अधूरा था</option>
+          <option value="website_issue">वेबसाइट में समस्या</option>
+          <option value="suggestion">नया सुझाव</option>
+          <option value="other">अन्य</option>
+        </select>
+        <label for="feedbackText">सुझाव या समस्या (वैकल्पिक)</label>
+        <textarea id="feedbackText" maxlength="1500" placeholder="क्या सुधार होना चाहिए? (पासवर्ड, OTP या निजी जानकारी न लिखें)"></textarea>
+        <button class="submit-button" id="feedbackSubmit" type="submit">Feedback सेव करें</button>
+      </form>
+      <p id="feedbackStatus" class="feedback-status" role="status" aria-live="polite"></p>
+      <p class="note">इस संस्करण में Feedback इसी ब्राउज़र/डिवाइस पर सेव होता है; यह अभी मालिक के पास ऑनलाइन नहीं भेजा जाता।</p>
+      <button class="secondary-button" id="exportFeedback" type="button">इस डिवाइस का Feedback डाउनलोड करें (JSON)</button>
+    </section>
 
-const MAX_BODY_BYTES = 20000;
-const MAX_QUESTION_CHARS = 4000;
-const REQUEST_TIMEOUT_MS = 60000;
+    <section class="panel security">
+      <h2>🛡️ आपकी सुरक्षा</h2>
+      <p>AI का जवाब गलत भी हो सकता है। सरकारी नौकरी, रिजल्ट और योजनाओं की जानकारी आधिकारिक वेबसाइट पर जाँचें। किसी को OTP या PIN न दें।</p>
+    </section>
+  </main>
 
-const MAX_CONCURRENT_AI_REQUESTS = 2;
-const MAX_QUEUE_LENGTH = 8;
-const MAX_QUEUE_WAIT_MS = 90000;
+  <footer>© 2026 AI Help Center · आसान हिंदी में डिजिटल मदद</footer>
 
-const SYSTEM_INSTRUCTION = `
-You are AI Help Center, a reliable support assistant for users in India.
+  <script>
+    "use strict";
 
-LANGUAGE:
-- Reply in the same language as the user's question.
-- When the user writes in Hindi, use simple, natural Hindi.
-- Explain technical terms in everyday language.
+    const form = document.getElementById("questionForm");
+    const questionInput = document.getElementById("question");
+    const submitBtn = document.getElementById("submitBtn");
+    const answerBox = document.getElementById("answer");
 
-ANSWER QUALITY:
-- Understand the user's exact question and answer it directly.
-- Stay relevant. Do not answer a different question.
-- Use short headings, numbered steps and bullet points when helpful.
-- Give complete answers, but avoid unnecessary repetition.
-- Never stop halfway through a sentence or section.
-- If essential details are missing, ask one short clarification.
-- Do not claim that information has been verified unless it has.
+    function showMessage(message, isError = false) {
+      answerBox.style.display = "block";
+      answerBox.classList.toggle("error", isError);
+      answerBox.textContent = message;
+    }
 
-GOVERNMENT INFORMATION:
-- Help with Indian government schemes, jobs, exams, results,
-  documents and application processes.
-- Never invent vacancies, eligibility rules, income limits,
-  benefits, fees, dates or deadlines.
-- Give official links only when you know the URL reliably.
-- Never invent a website link.
-- If current information has not been verified, say so clearly.
-- Recommend checking the relevant official portal for confirmation.
-- Never claim to have submitted a form or checked personal status
-  unless that action was actually performed.
-
-STUDY AND CAREER:
-- For study plans, give a practical timetable appropriate to
-  the user's request.
-- For MCQs, provide numbered questions, options and an answer key.
-- For CV and career questions, give clear, useful steps.
-- Do not describe practice questions as official exam questions
-  unless they have been verified.
-
-TECHNICAL HELP:
-- Explain instructions in the correct order.
-- Use beginner-friendly steps.
-- Distinguish possible causes from confirmed causes.
-- Never claim to have changed an account, device or website
-  when no such action was performed.
-
-SAFETY AND PRIVACY:
-- Never ask for passwords, OTPs, API keys, UPI PINs or banking PINs.
-- Do not request unnecessary personal information.
-- Be honest when you are uncertain.
-- Explain how the user can verify important information.
-
-Keep answers accurate, clear, complete and appropriately concise.
-`.trim();
-
-let activeAiRequests = 0;
-const waitingQueue = [];
-
-function sendJson(res, status, data) {
-  if (res.writableEnded || res.destroyed) return;
-
-  res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "no-store",
-    "X-Content-Type-Options": "nosniff"
-  });
-
-  res.end(JSON.stringify(data));
-}
-
-function getPath(req) {
-  try {
-    return new URL(req.url, "http://localhost").pathname;
-  } catch {
-    return "";
-  }
-}
-
-function serveHomepage(res) {
-  fs.readFile(INDEX_FILE, (error, html) => {
-    if (error) {
-      console.error("Homepage error:", error.message);
-
-      return sendJson(res, 500, {
-        error: "Homepage unavailable. Check public/index.html."
+    document.querySelectorAll(".category").forEach(button => {
+      button.addEventListener("click", () => {
+        questionInput.value = button.dataset.question || "";
+        answerBox.style.display = "none";
+        document.getElementById("ask").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+        questionInput.focus({ preventScroll: true });
       });
-    }
-
-    if (res.writableEnded || res.destroyed) return;
-
-    res.writeHead(200, {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "no-cache",
-      "X-Content-Type-Options": "nosniff"
     });
 
-    res.end(html);
-  });
-}
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const question = questionInput.value.trim();
 
-async function readJsonBody(req) {
-  let body = "";
-  let size = 0;
-
-  for await (const chunk of req) {
-    size += chunk.length;
-
-    if (size > MAX_BODY_BYTES) {
-      const error = new Error("Request too large");
-      error.statusCode = 413;
-      throw error;
-    }
-
-    body += chunk.toString("utf8");
-  }
-
-  try {
-    return JSON.parse(body);
-  } catch {
-    const error = new Error("Invalid JSON");
-    error.statusCode = 400;
-    throw error;
-  }
-}
-
-function runQueued(task) {
-  return new Promise((resolve, reject) => {
-    const item = { task, resolve, reject, timer: null };
-
-    if (activeAiRequests < MAX_CONCURRENT_AI_REQUESTS) {
-      startQueued(item);
-      return;
-    }
-
-    if (waitingQueue.length >= MAX_QUEUE_LENGTH) {
-      const error = new Error("AI queue is full");
-      error.code = "QUEUE_FULL";
-      reject(error);
-      return;
-    }
-
-    item.timer = setTimeout(() => {
-      const index = waitingQueue.indexOf(item);
-
-      if (index !== -1) {
-        waitingQueue.splice(index, 1);
-
-        const error = new Error("Queue wait expired");
-        error.code = "QUEUE_TIMEOUT";
-        reject(error);
+      if (!question) {
+        showMessage("पहले अपना सवाल लिखें।", true);
+        questionInput.focus();
+        return;
       }
-    }, MAX_QUEUE_WAIT_MS);
 
-    waitingQueue.push(item);
-  });
-}
+      submitBtn.disabled = true;
+      submitBtn.textContent = "जवाब तैयार हो रहा है…";
+      showMessage("कृपया इंतज़ार करें। आपका सवाल भेजा जा रहा है।");
 
-function startQueued(item) {
-  if (item.timer) clearTimeout(item.timer);
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+        const data = await response.json().catch(() => ({}));
 
-  activeAiRequests++;
-
-  Promise.resolve()
-    .then(item.task)
-    .then(item.resolve, item.reject)
-    .finally(() => {
-      activeAiRequests--;
-
-      while (waitingQueue.length > 0) {
-        const next = waitingQueue.shift();
-
-        if (next.timer) clearTimeout(next.timer);
-
-        startQueued(next);
-        break;
-      }
-    });
-}
-
-async function callGemini(question) {
-  const controller = new AbortController();
-
-  const timeout = setTimeout(
-    () => controller.abort(),
-    REQUEST_TIMEOUT_MS
-  );
-
-  try {
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/" +
-      encodeURIComponent(GEMINI_MODEL) +
-      ":generateContent";
-
-    const response = await fetch(url, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": GEMINI_API_KEY
-      },
-      body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: SYSTEM_INSTRUCTION }]
-        },
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: question }]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          maxOutputTokens: 2000
+        if (!response.ok) {
+          throw new Error(data.message || data.error || "AI सेवा अभी जवाब नहीं दे सकी।");
         }
-      })
+        if (typeof data.answer !== "string" || !data.answer.trim()) {
+          throw new Error("AI से खाली जवाब मिला।");
+        }
+
+        showMessage(data.answer.trim());
+      } catch (error) {
+        showMessage(
+          "अभी जवाब नहीं मिल पाया।\n" +
+          (error.message || "कनेक्शन की समस्या है।") +
+          "\n\nइंटरनेट जाँचें और थोड़ी देर बाद फिर कोशिश करें।",
+          true
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "जवाब पाएँ";
+      }
     });
 
-    const raw = await response.text();
+    let selectedRating = "";
+    const feedbackStatus = document.getElementById("feedbackStatus");
 
-    let result;
+    document.querySelectorAll("[data-rating]").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedRating = button.dataset.rating;
+        document.querySelectorAll("[data-rating]").forEach(item => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+      });
+    });
 
-    try {
-      result = JSON.parse(raw);
-    } catch {
-      const error = new Error("Invalid AI response");
-      error.code = "INVALID_AI_RESPONSE";
-      throw error;
+    function getFeedbackItems() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("aiHelpCenterFeedback") || "[]");
+        return Array.isArray(saved) ? saved : [];
+      } catch (_) {
+        return [];
+      }
     }
 
-    if (!response.ok) {
-      const error = new Error(
-        String(result?.error?.message || "").slice(0, 300)
+    document.getElementById("feedbackForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!selectedRating) {
+        feedbackStatus.textContent = "कृपया 👍 या 👎 में से एक विकल्प चुनें।";
+        return;
+      }
+
+      const item = {
+        createdAt: new Date().toISOString(),
+        rating: selectedRating,
+        type: document.getElementById("feedbackType").value,
+        message: document.getElementById("feedbackText").value.trim()
+      };
+
+      try {
+        const items = getFeedbackItems();
+        items.push(item);
+        localStorage.setItem("aiHelpCenterFeedback", JSON.stringify(items));
+
+        feedbackStatus.textContent =
+          "Feedback इस डिवाइस पर सेव हो गया। धन्यवाद! कुल सेव Feedback: " + items.length;
+
+        document.getElementById("feedbackForm").reset();
+        selectedRating = "";
+
+        document.querySelectorAll("[data-rating]").forEach(button => {
+          button.setAttribute("aria-pressed", "false");
+        });
+      } catch (_) {
+        feedbackStatus.textContent =
+          "Feedback सेव नहीं हो पाया। डिवाइस में स्टोरेज खाली करके फिर कोशिश करें।";
+      }
+    });
+
+    document.getElementById("exportFeedback").addEventListener("click", () => {
+      const items = getFeedbackItems();
+
+      if (!items.length) {
+        feedbackStatus.textContent = "अभी कोई Feedback सेव नहीं है।";
+        return;
+      }
+
+      const blob = new Blob(
+        [JSON.stringify(items, null, 2)],
+        { type: "application/json;charset=utf-8" }
       );
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
 
-      error.code = "GEMINI_ERROR";
-      error.status = response.status;
-      throw error;
-    }
+      link.href = url;
+      link.download = "ai-help-center-feedback.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
 
-    const candidate = result?.candidates?.[0];
-
-    const answer = candidate?.content?.parts
-      ?.map(part =>
-        typeof part.text === "string" ? part.text : ""
-      )
-      .join("")
-      .trim();
-
-    if (!answer) {
-      const error = new Error("AI returned no text");
-      error.code = "EMPTY_ANSWER";
-      throw error;
-    }
-
-    if (candidate?.finishReason === "MAX_TOKENS") {
-      console.warn("Gemini answer may have been truncated.");
-    }
-
-    return answer;
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function handleAsk(req, res) {
-  if (!GEMINI_API_KEY) {
-    return sendJson(res, 503, {
-      error: "AI service is not configured"
+      feedbackStatus.textContent = "Feedback फ़ाइल डाउनलोड करने की कोशिश की गई।";
     });
-  }
-
-  let data;
-
-  try {
-    data = await readJsonBody(req);
-  } catch (error) {
-    return sendJson(res, error.statusCode || 400, {
-      error:
-        error.statusCode === 413
-          ? "Request body is too large"
-          : "Invalid JSON request"
-    });
-  }
-
-  if (
-    !data ||
-    typeof data !== "object" ||
-    Array.isArray(data)
-  ) {
-    return sendJson(res, 400, {
-      error: "Send a JSON object containing question"
-    });
-  }
-
-  if (typeof data.question !== "string") {
-    return sendJson(res, 400, {
-      error: "Question must be text"
-    });
-  }
-
-  const question = data.question.trim();
-
-  if (!question || question.length > MAX_QUESTION_CHARS) {
-    return sendJson(res, 400, {
-      error: "Question is required; maximum 4000 characters"
-    });
-  }
-
-  try {
-    const answer = await runQueued(
-      () => callGemini(question)
-    );
-
-    return sendJson(res, 200, { answer });
-  } catch (error) {
-    if (error.code === "QUEUE_FULL") {
-      return sendJson(res, 503, {
-        error:
-          "अभी बहुत सारे सवाल आ रहे हैं। कृपया थोड़ी देर बाद कोशिश करें।"
-      });
-    }
-
-    if (error.code === "QUEUE_TIMEOUT") {
-      return sendJson(res, 503, {
-        error:
-          "आपकी बारी में देर हो गई। कृपया दोबारा कोशिश करें।"
-      });
-    }
-
-    if (error.name === "AbortError") {
-      return sendJson(res, 504, {
-        error:
-          "AI जवाब देने में समय ले रहा है। कृपया दोबारा कोशिश करें।"
-      });
-    }
-
-    if (error.code === "GEMINI_ERROR") {
-      console.error("Gemini API error:", {
-        status: error.status,
-        model: GEMINI_MODEL,
-        message: error.message
-      });
-
-      if (error.status === 429) {
-        return sendJson(res, 429, {
-          error:
-            "AI की usage limit पूरी हो गई है। कृपया बाद में कोशिश करें।"
-        });
-      }
-
-      if (
-        error.status === 503 ||
-        error.status === 502
-      ) {
-        return sendJson(res, 503, {
-          error:
-            "AI सेवा अभी व्यस्त है। कृपया थोड़ी देर बाद कोशिश करें।"
-        });
-      }
-
-      if (
-        error.status === 401 ||
-        error.status === 403
-      ) {
-        return sendJson(res, 502, {
-          error:
-            "AI सेवा की configuration जाँचने की जरूरत है।"
-        });
-      }
-
-      if (error.status === 404) {
-        return sendJson(res, 502, {
-          error: "Gemini model उपलब्ध नहीं है।"
-        });
-      }
-
-      return sendJson(res, 502, {
-        error:
-          "AI से जवाब नहीं मिल पाया। कृपया बाद में कोशिश करें।"
-      });
-    }
-
-    console.error("AI request error:", error.message);
-
-    return sendJson(res, 502, {
-      error:
-        "AI से कनेक्शन नहीं हो पाया। कृपया बाद में कोशिश करें।"
-    });
-  }
-}
-
-const server = http.createServer(async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type"
-  );
-
-  if (req.method === "OPTIONS") {
-    res.writeHead(204);
-    return res.end();
-  }
-
-  const route = getPath(req);
-
-  if (req.method === "GET" && route === "/") {
-    return serveHomepage(res);
-  }
-
-  if (req.method === "GET" && route === "/health") {
-    return sendJson(res, 200, { status: "healthy" });
-  }
-
-  if (req.method === "POST" && route === "/ask") {
-    return handleAsk(req, res);
-  }
-
-  return sendJson(res, 404, { error: "Not found" });
-});
-
-server.requestTimeout = 120000;
-server.headersTimeout = 125000;
-
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`AI Help Center running on port ${PORT}`);
-  console.log(`Gemini model configured: ${GEMINI_MODEL}`);
-  console.log(`AI concurrency limit: ${MAX_CONCURRENT_AI_REQUESTS}`);
-  console.log(`AI queue capacity: ${MAX_QUEUE_LENGTH}`);
-});
+  </script>
+</body>
+</html>
