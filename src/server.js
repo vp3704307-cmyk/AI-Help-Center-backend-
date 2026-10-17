@@ -21,11 +21,56 @@ const MAX_QUEUE_LENGTH = 8;
 const MAX_QUEUE_WAIT_MS = 90000;
 
 const SYSTEM_INSTRUCTION = `
-You are AI Help Center, a helpful Hindi support assistant.
-Answer in simple Hindi with clear steps.
-Never invent government vacancies, results, dates, or official rules.
-Direct users to official sources for current information.
-Never ask for passwords, OTPs, or API keys.
+You are AI Help Center, a reliable support assistant for users in India.
+
+LANGUAGE:
+- Reply in the same language as the user's question.
+- When the user writes in Hindi, use simple, natural Hindi.
+- Explain technical terms in everyday language.
+
+ANSWER QUALITY:
+- Understand the user's exact question and answer it directly.
+- Stay relevant. Do not answer a different question.
+- Use short headings, numbered steps and bullet points when helpful.
+- Give complete answers, but avoid unnecessary repetition.
+- Never stop halfway through a sentence or section.
+- If essential details are missing, ask one short clarification.
+- Do not claim that information has been verified unless it has.
+
+GOVERNMENT INFORMATION:
+- Help with Indian government schemes, jobs, exams, results,
+  documents and application processes.
+- Never invent vacancies, eligibility rules, income limits,
+  benefits, fees, dates or deadlines.
+- Give official links only when you know the URL reliably.
+- Never invent a website link.
+- If current information has not been verified, say so clearly.
+- Recommend checking the relevant official portal for confirmation.
+- Never claim to have submitted a form or checked personal status
+  unless that action was actually performed.
+
+STUDY AND CAREER:
+- For study plans, give a practical timetable appropriate to
+  the user's request.
+- For MCQs, provide numbered questions, options and an answer key.
+- For CV and career questions, give clear, useful steps.
+- Do not describe practice questions as official exam questions
+  unless they have been verified.
+
+TECHNICAL HELP:
+- Explain instructions in the correct order.
+- Use beginner-friendly steps.
+- Distinguish possible causes from confirmed causes.
+- Never claim to have changed an account, device or website
+  when no such action was performed.
+
+SAFETY AND PRIVACY:
+- Never ask for passwords, OTPs, API keys, UPI PINs or banking PINs.
+- Do not request unnecessary personal information.
+- Be honest when you are uncertain.
+- Explain how the user can verify important information.
+
+Keep answers accurate, clear, complete and appropriately concise.
 `.trim();
 
 let activeAiRequests = 0;
@@ -55,6 +100,7 @@ function serveHomepage(res) {
   fs.readFile(INDEX_FILE, (error, html) => {
     if (error) {
       console.error("Homepage error:", error.message);
+
       return sendJson(res, 500, {
         error: "Homepage unavailable. Check public/index.html."
       });
@@ -153,6 +199,7 @@ function startQueued(item) {
 
 async function callGemini(question) {
   const controller = new AbortController();
+
   const timeout = setTimeout(
     () => controller.abort(),
     REQUEST_TIMEOUT_MS
@@ -175,13 +222,15 @@ async function callGemini(question) {
         systemInstruction: {
           parts: [{ text: SYSTEM_INSTRUCTION }]
         },
-        contents: [{
-          role: "user",
-          parts: [{ text: question }]
-        }],
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: question }]
+          }
+        ],
         generationConfig: {
-          temperature: 0.4,
-          maxOutputTokens: 800
+          temperature: 0.3,
+          maxOutputTokens: 2000
         }
       })
     });
@@ -189,6 +238,7 @@ async function callGemini(question) {
     const raw = await response.text();
 
     let result;
+
     try {
       result = JSON.parse(raw);
     } catch {
@@ -207,8 +257,12 @@ async function callGemini(question) {
       throw error;
     }
 
-    const answer = result?.candidates?.[0]?.content?.parts
-      ?.map(part => typeof part.text === "string" ? part.text : "")
+    const candidate = result?.candidates?.[0];
+
+    const answer = candidate?.content?.parts
+      ?.map(part =>
+        typeof part.text === "string" ? part.text : ""
+      )
       .join("")
       .trim();
 
@@ -216,6 +270,10 @@ async function callGemini(question) {
       const error = new Error("AI returned no text");
       error.code = "EMPTY_ANSWER";
       throw error;
+    }
+
+    if (candidate?.finishReason === "MAX_TOKENS") {
+      console.warn("Gemini answer may have been truncated.");
     }
 
     return answer;
@@ -237,13 +295,18 @@ async function handleAsk(req, res) {
     data = await readJsonBody(req);
   } catch (error) {
     return sendJson(res, error.statusCode || 400, {
-      error: error.statusCode === 413
-        ? "Request body is too large"
-        : "Invalid JSON request"
+      error:
+        error.statusCode === 413
+          ? "Request body is too large"
+          : "Invalid JSON request"
     });
   }
 
-  if (!data || typeof data !== "object" || Array.isArray(data)) {
+  if (
+    !data ||
+    typeof data !== "object" ||
+    Array.isArray(data)
+  ) {
     return sendJson(res, 400, {
       error: "Send a JSON object containing question"
     });
@@ -264,24 +327,30 @@ async function handleAsk(req, res) {
   }
 
   try {
-    const answer = await runQueued(() => callGemini(question));
+    const answer = await runQueued(
+      () => callGemini(question)
+    );
+
     return sendJson(res, 200, { answer });
   } catch (error) {
     if (error.code === "QUEUE_FULL") {
       return sendJson(res, 503, {
-        error: "अभी बहुत सारे सवाल आ रहे हैं। कृपया थोड़ी देर बाद कोशिश करें।"
+        error:
+          "अभी बहुत सारे सवाल आ रहे हैं। कृपया थोड़ी देर बाद कोशिश करें।"
       });
     }
 
     if (error.code === "QUEUE_TIMEOUT") {
       return sendJson(res, 503, {
-        error: "आपकी बारी में देर हो गई। कृपया दोबारा कोशिश करें।"
+        error:
+          "आपकी बारी में देर हो गई। कृपया दोबारा कोशिश करें।"
       });
     }
 
     if (error.name === "AbortError") {
       return sendJson(res, 504, {
-        error: "AI जवाब देने में समय ले रहा है। कृपया दोबारा कोशिश करें।"
+        error:
+          "AI जवाब देने में समय ले रहा है। कृपया दोबारा कोशिश करें।"
       });
     }
 
@@ -294,19 +363,28 @@ async function handleAsk(req, res) {
 
       if (error.status === 429) {
         return sendJson(res, 429, {
-          error: "AI की Free usage limit पूरी हो गई है। कृपया बाद में कोशिश करें।"
+          error:
+            "AI की usage limit पूरी हो गई है। कृपया बाद में कोशिश करें।"
         });
       }
 
-      if (error.status === 503 || error.status === 502) {
+      if (
+        error.status === 503 ||
+        error.status === 502
+      ) {
         return sendJson(res, 503, {
-          error: "AI सेवा अभी व्यस्त है। कृपया थोड़ी देर बाद कोशिश करें।"
+          error:
+            "AI सेवा अभी व्यस्त है। कृपया थोड़ी देर बाद कोशिश करें।"
         });
       }
 
-      if (error.status === 401 || error.status === 403) {
+      if (
+        error.status === 401 ||
+        error.status === 403
+      ) {
         return sendJson(res, 502, {
-          error: "AI सेवा की configuration जाँचने की जरूरत है।"
+          error:
+            "AI सेवा की configuration जाँचने की जरूरत है।"
         });
       }
 
@@ -317,22 +395,30 @@ async function handleAsk(req, res) {
       }
 
       return sendJson(res, 502, {
-        error: "AI से जवाब नहीं मिल पाया। कृपया बाद में कोशिश करें।"
+        error:
+          "AI से जवाब नहीं मिल पाया। कृपया बाद में कोशिश करें।"
       });
     }
 
     console.error("AI request error:", error.message);
 
     return sendJson(res, 502, {
-      error: "AI से कनेक्शन नहीं हो पाया। कृपया बाद में कोशिश करें।"
+      error:
+        "AI से कनेक्शन नहीं हो पाया। कृपया बाद में कोशिश करें।"
     });
   }
 }
 
 const server = http.createServer(async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
 
   if (req.method === "OPTIONS") {
     res.writeHead(204);
